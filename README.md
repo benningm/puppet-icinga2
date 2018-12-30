@@ -55,8 +55,8 @@ available in Icinga 2 can be enabled and configured with this module.
 
 This module depends on:
 
-* [puppetlabs/stdlib] >= 4.16.0
-* [puppetlabs/concat] >= 2.1.0
+* [puppetlabs/stdlib] >= 4.16.0 < 5.0.0
+* [puppetlabs/concat] >= 2.1.0 < 5.0.0
 
 Depending on your setup following modules may also be required:
 
@@ -391,7 +391,7 @@ icinga2::object::hostgroup { 'monitoring-hosts':
   display_name => 'Linux Servers',
   groups       => [ 'linux-servers' ],
   target       => '/etc/icinga2/conf.d/groups2.conf',
-  assign       => [ 'host.vars.os == "linux"' ],
+  assign       => [ 'host.vars.os == linux' ],
 }
 ```
 
@@ -569,7 +569,7 @@ icinga2::object::hostgroup { 'monitoring-hosts':
   display_name => 'Linux Servers',
   groups       => [ 'linux-servers' ],
   target       => '/etc/icinga2/conf.d/groups2.conf',
-  assign       => [ 'host.vars.os == "linux"' ],
+  assign       => [ 'host.vars.os == linux' ],
 }
 ```
 
@@ -1123,9 +1123,13 @@ Set severity level for logging to syslog. Available options are:
 * `information`
 * `notice`
 * `warning`
+* `critical`
 * `debug`
 
 Defaults to `warning`
+
+##### `facility`
+Defines the facility to use for syslog entries. This can be a facility constant like `FacilityDaemon`. Defaults to `FacilityUser`.
 
 #### Class: `icinga2::feature::debuglog`
 Enables or disables the `debuglog` feature.
@@ -2067,7 +2071,7 @@ Defaults to `5` minutes.
 
 ##### `retry_interval`
 The retry interval (in seconds). This interval is used for checks when the service is in a SOFT state.
-Defaults to `1 minute.
+Defaults to `1` minute.
 
 ##### `enable_notifications`
 Whether notifications are enabled. Defaults to `true`
